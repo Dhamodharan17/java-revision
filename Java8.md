@@ -1,11 +1,11 @@
-### Lambda Expression
+## Lambda Expression
 
 - Bring benefits of functional programming in Java.
 - 3 tokens ( ) - > { }
 
 <a href="url"><img src="https://github.com/user-attachments/assets/3cd4d1ac-45ae-4027-9f84-1d69788ce7fb" align="left" height="400" width="400" ></a>
 | - |
-### Functional Interface
+## Functional Interface
 - Only one abstract method
 - Can have any number of default and static methods
 ```
@@ -41,7 +41,7 @@ interface Bank{
   }
 }
 ```
-### Internal SAM
+## Internal SAM
 
 ```
 //without functional interface
@@ -74,12 +74,12 @@ public class Main {
   }
 }
 ```
-### Steps to create Functional Interface and work with it
+## Steps to create Functional Interface and work with it
 - Create a interface(Red) with only one abstract method(color).
 - With that interface(Red) as variable provide implementation using lambda expression.
 - Call that variable with tha abstract method(color).
 
-### Method References
+## Method References
 
 - Compact and easy form of lambda expression
 - Using method reference for existing implementation instead of lambda expression implementation.
@@ -109,7 +109,7 @@ interface Math{
 <a href="url"><img src="https://github.com/user-attachments/assets/92eb93e3-b1b3-4215-99bc-f3b6d33a9958" align="left" height="400" width="900" ></a>
 | - |
 
-### Type 3 Example
+## Type 3 Example
 ```
 public class Main {
   
@@ -151,7 +151,102 @@ we no need to create interface for our simple usecase, Java provides variety of 
    }
 }
 ```
+## Java Streams
 
+## Quick ways to create a stream
+
+```java
+// From parameters
+Stream<String> s = Stream.of("a", "b");
+
+// From arrays
+Arrays.stream(myArray)
+
+// From collections
+myCollections.stream()
+
+// you also have specialized streams like IntStream, LongStream, DoubleStream, some example below:
+IntStream ints = IntStream.range(0, 10_000);
+IntStream rdInts = new Random().ints(1000);
+```
+
+## Most common methods
+
+* ```filter()```
+* ```mapToInt```, ```mapToObj```
+* ```map()```
+* ```collect()```
+* ```findAny()```, ```findFirst()```, ```noneMatch()```
+* ```forEach()```
+* ```distinct()```
+* ```sorted()``` ```sorted(Comparator<? super T>)```
+
+## Differences map() and flatmap()
+
+These functions can be applied to 
+* Optional
+* Stream
+
+### map()
+
+```map()``` returns a stream consisting of the results of applying the parameter function to the elements of the stream. This can potentially leads to producing output of type ```Stream<Stream<R>>```, which are hard to work with. In such cases, ```flatmap()``` can be used (see below).
+
+### flatMap()
+
+```flatMap()```, as it names indicates, _flattens_ the result. Unlike ```map()``` which is only performing a transformation on each element of the stream, ```flatMap()``` also perform flattening of the inner streams in the stream resulting from the transformation.
+
+Example:
+```java
+String[] arr = { "map", "flatmap" }; 
+Arrays.stream(arr).flatMap(word -> word.chars().mapToObj(o -> (char) o)).forEach(System.out::println);
+```
+This prints:
+```
+m
+a
+p
+f
+l
+a
+m
+a
+p
+```
+
+## From stream to collection
+
+Example, use: ```mystream.collect(Collectors.toList())```, ```mystream.collect(Collectors.toCollection(ArrayList::new)```
+
+## From stream to array
+
+Example, use: ```mystream.toArray(String[]::new)```
+
+## Reduction operations
+
+* ```reduce(identity, BinaryOperator<T> accumulator)```
+
+Example: 
+```java
+String[] myArray = { "Where", "is", "my", "stream", "?" };
+String result = Arrays.stream(myArray)
+                .reduce("", (a,b) -> a + " " + b);
+assert result.equals(" Where is my stream ?");               
+```
+
+Others...
+
+* ```sum()```
+* ```average()```
+* ```count()```
+
+## Parallelization
+
+The motivation behind the stream API was mostly to enable easy parallelization
+
+Use these methods:
+
+* ``myStream.parallel()``
+* ``myCollection.parallelStream()``
 
 
 
