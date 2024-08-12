@@ -180,6 +180,9 @@ IntStream rdInts = new Random().ints(1000);
 * ```forEach()```
 * ```distinct()```
 * ```sorted()``` ```sorted(Comparator<? super T>)```
+* ```sum()```,```min()```,```max()```
+* ```average()```
+* ```count()```
 
 ## Differences map() and flatmap()
 
@@ -235,9 +238,7 @@ assert result.equals(" Where is my stream ?");
 
 Others...
 
-* ```sum()```
-* ```average()```
-* ```count()```
+
 
 ## Parallelization
 
