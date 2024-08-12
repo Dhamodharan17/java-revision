@@ -248,6 +248,51 @@ Use these methods:
 * ``myStream.parallel()``
 * ``myCollection.parallelStream()``
 
+### Java Optionals
+Avoid Null pointer exception and handle it gracefully.
+
+- Optional.of(T) - throws NPE when values if null
+- Optional.nullable(T) - if value is null, return empty optiona;
+- Optional.empty() - create empty optional
+
+### Methods
+
+## 1. Creation Methods
+- Optional.of(T value): Returns an Optional with the specified non-null value.
+- Optional.ofNullable(T value): Returns an Optional describing the specified value, or an empty Optional if the value is null.
+- Optional.empty(): Returns an empty Optional.
+
+## 2. Inspection Methods
+- boolean isPresent(): Returns true if the value is present, otherwise false.
+- boolean isEmpty() (since Java 11): Returns true if the value is absent, otherwise false.
+
+## 3. Retrieval Methods
+- T get(): If a value is present, returns the value, otherwise throws NoSuchElementException.
+- T orElse(T other): Returns the value if present, otherwise returns other.
+- T orElseGet(Supplier<? extends T> supplier): Returns the value if present, otherwise returns the result produced by the supplier.
+- T orElseThrow(): Returns the contained value if present, otherwise throws NoSuchElementException.
+- <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier): Returns the value if present, otherwise throws an exception created by the provided supplier.
+
+## 4. Conditional Actions
+- void ifPresent(Consumer<? super T> action): If a value is present, performs the given action with the value.
+- void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction) (since Java 9): If a value is present, performs the given action with the value, otherwise performs the given empty-based action.
+
+## 5. Transformation Methods
+- <U> Optional<U> map(Function<? super T, ? extends U> mapper): If a value is present, applies the provided mapping function to it and returns an Optional describing the result. If the result is null, returns an empty Optional.
+- <U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper): Similar to map(), but the mapping function itself returns an Optional, which is not wrapped with an additional Optional.
+- Optional<T> filter(Predicate<? super T> predicate): If a value is present, and it matches the given predicate, returns an Optional describing the value; otherwise, returns an empty Optional.
+
+## 6. Utility Methods
+- T or() (since Java 10): Returns the value if present, otherwise returns an alternative Optional provided by a supplier.
+- Stream<T> stream() (since Java 9): If a value is present, returns a Stream containing only that value, otherwise returns an empty Stream.
+- boolean equals(Object obj): Indicates whether some other object is "equal to" this Optional.
+- int hashCode(): Returns the hash code value of the present value, or 0 if no value is present.
+- String toString(): Returns a non-empty string representation of this Optional, suitable for debugging.
+
+## 7. Combination Methods
+Optional<T> or(Supplier<? extends Optional<? extends T>> supplier): Returns this Optional if a value is present, otherwise returns the Optional produced by the supplying function.
+
+
 
 
 
